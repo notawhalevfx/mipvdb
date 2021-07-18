@@ -1,20 +1,21 @@
 include(ExternalProject)
+include(ProcessorCount)
 
 # blosc
-ExternalProject_Add(blosc
+ExternalProject_Add(blosc_ext
   PREFIX ${CMAKE_BINARY_DIR}/deps
   GIT_REPOSITORY git@github.com:Blosc/c-blosc.git
   GIT_TAG v1.5.0
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR} -DBUILD_STATIC=ON
 )
 
-include(ProcessorCount)
+# Get num of threads
 ProcessorCount(N)
 message("Found ${N} Threads")
 
 # tbb
 # TODO in future test static library
-ExternalProject_Add(tbb
+ExternalProject_Add(tbb_ext
   PREFIX ${CMAKE_BINARY_DIR}/deps
   GIT_REPOSITORY git@github.com:oneapi-src/oneTBB.git
   GIT_TAG 2018_U6
@@ -23,6 +24,12 @@ ExternalProject_Add(tbb
   BUILD_COMMAND make -j${N} tbb tbbmalloc tbbproxy
   INSTALL_COMMAND sh -c "cp -u -v -R ${CMAKE_BINARY_DIR}/deps/src/tbb/build/linux*/*.so* ${CMAKE_BINARY_DIR}/lib/" &&
   sh -c "cp -u -v -R ${CMAKE_BINARY_DIR}/deps/src/tbb/include/tbb ${CMAKE_BINARY_DIR}/include/"
+)
+
+add_library(tbb IMPORTED SHARED GLOBAL)
+set_target_properties(tbb PROPERTIES
+        "IMPORTED_LOCATION" "${CMAKE_BINARY_DIR}/lib/libtbb.so"
+        "INTERFACE_INCLUDE_DIRECTORIES" ${CMAKE_BINARY_DIR}/include
 )
 
 # TODO: Add jemalloc in future release
@@ -39,8 +46,8 @@ ExternalProject_Add(tbb
 # )
 
 # OpenVDB
-ExternalProject_Add(openvdb
-  DEPENDS tbb blosc
+ExternalProject_Add(openvdb_ext
+  DEPENDS tbb_ext blosc_ext
   PREFIX ${CMAKE_CURRENT_BINARY_DIR}/deps
   GIT_REPOSITORY git@github.com:AcademySoftwareFoundation/openvdb.git
   GIT_TAG v8.1.0
@@ -48,4 +55,13 @@ ExternalProject_Add(openvdb
   -DTBB_ROOT=${CMAKE_BINARY_DIR}
   -DBlosc_ROOT=${CMAKE_BINARY_DIR}
   -DOPENVDB_BUILD_PYTHON_MODULE=OFF
+)
+
+add_library(openvdb IMPORTED SHARED GLOBAL)
+target_link_libraries(openvdb INTERFACE tbb)
+add_dependencies(openvdb openvdb_ext)
+
+set_target_properties(openvdb PROPERTIES
+        "IMPORTED_LOCATION" "${CMAKE_BINARY_DIR}/lib64/libopenvdb.so"
+        "INTERFACE_INCLUDE_DIRECTORIES" ${CMAKE_BINARY_DIR}/include
 )
