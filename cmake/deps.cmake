@@ -22,8 +22,8 @@ ExternalProject_Add(tbb_ext
   CONFIGURE_COMMAND ""
   BUILD_IN_SOURCE ON
   BUILD_COMMAND make -j${N} tbb tbbmalloc tbbproxy
-  INSTALL_COMMAND sh -c "cp -u -v -R ${CMAKE_BINARY_DIR}/deps/src/tbb/build/linux*/*.so* ${CMAKE_BINARY_DIR}/lib/" &&
-  sh -c "cp -u -v -R ${CMAKE_BINARY_DIR}/deps/src/tbb/include/tbb ${CMAKE_BINARY_DIR}/include/"
+  INSTALL_COMMAND sh -c "cp -u -R ${CMAKE_BINARY_DIR}/deps/src/tbb/build/linux*/*.so* ${CMAKE_BINARY_DIR}/lib/" &&
+  sh -c "cp -u -R ${CMAKE_BINARY_DIR}/deps/src/tbb/include/tbb ${CMAKE_BINARY_DIR}/include/"
 )
 
 add_library(tbb IMPORTED SHARED GLOBAL)
@@ -65,3 +65,6 @@ set_target_properties(openvdb PROPERTIES
         "IMPORTED_LOCATION" "${CMAKE_BINARY_DIR}/lib64/libopenvdb.so"
         "INTERFACE_INCLUDE_DIRECTORIES" ${CMAKE_BINARY_DIR}/include
 )
+
+# boost
+find_package(Boost 1.56 REQUIRED COMPONENTS filesystem program_options)
