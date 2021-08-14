@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
 
 namespace mipvdb {
 
@@ -44,7 +45,7 @@ inline std::ostream &operator<<(std::ostream &os, const samplingInterpolation &s
 };
 
 enum class WordNaming {
-  half = 2,
+  half = 1,
   quater,
   eight,
   sexteenth,
@@ -81,7 +82,6 @@ std::string enumToString(T enumClass) {
 
 struct options {
   bool oneFileMode = false;
-  bool verbose = false;
   mipNamingStyles namingStyle = mipNamingStyles::numbers;
   samplingInterpolation intepolation = samplingInterpolation::box;
   std::size_t levels = 2;

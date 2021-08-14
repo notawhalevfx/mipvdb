@@ -1,2 +1,10 @@
 CUI:
-  ☐ Write CUI on boost https://www.boost.org/doc/libs/1_76_0/doc/html/program_options.html#id-1.3.32.3
+  ✔ Write CUI on boost https://www.boost.org/doc/libs/1_76_0/doc/html/program_options.html#id-1.3.32.3 @done(21-08-14 23:18)
+Cmake:
+  ☐ Boost add cmake download and compile libs.
+  ☐ Add install and pack generation.
+Logging:
+  ☐ Rework logging.
+  ☐ Add mutex.
+tbb:
+  ☐ Add blocks to work in parallel to utilize a machine as much as possible.
