@@ -15,3 +15,5 @@ target_link_libraries(${PROJECT_NAME} cui)
 
 add_subdirectory(vdb_resize)
 target_link_libraries(${PROJECT_NAME} vdb_resize)
+
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)

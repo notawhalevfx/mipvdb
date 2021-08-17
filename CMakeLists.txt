@@ -13,6 +13,9 @@ enable_testing()
 
 add_subdirectory(src)
 
+
+install(FILES ${CMAKE_SOURCE_DIR}/LICENSE DESTINATION .)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)

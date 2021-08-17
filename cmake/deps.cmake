@@ -68,3 +68,9 @@ set_target_properties(openvdb PROPERTIES
 
 # boost
 find_package(Boost 1.56 REQUIRED COMPONENTS filesystem program_options)
+
+install(DIRECTORY "${CMAKE_BINARY_DIR}/lib/" DESTINATION lib
+        FILES_MATCHING PATTERN "*.so*")
+install(DIRECTORY "${CMAKE_BINARY_DIR}/lib64/" DESTINATION lib64
+        FILES_MATCHING PATTERN "*.so*"
+        PATTERN "cmake" EXCLUDE)

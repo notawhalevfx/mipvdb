@@ -14,7 +14,8 @@ logging::logging(const std::string &message)
 
 logging::~logging() {
   auto per = std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - _startTime);
-  std::cout << std::setprecision(4) << "[" << per.count() << " s] " << _message << "\n";
+  std::cout << std::fixed << std::setprecision(4) << "[" << per.count() << " s] " << _message << "\n";
+  std::cout << std::resetiosflags(std::ios::showbase);
 }
 
 }  // namespace mipvdb
