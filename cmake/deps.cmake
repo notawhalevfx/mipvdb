@@ -1,6 +1,9 @@
 include(ExternalProject)
 include(ProcessorCount)
 
+# Make some extra directories
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/include)
+
 # blosc
 ExternalProject_Add(blosc_ext
   PREFIX ${CMAKE_BINARY_DIR}/deps
@@ -19,11 +22,12 @@ ExternalProject_Add(tbb_ext
   PREFIX ${CMAKE_BINARY_DIR}/deps
   GIT_REPOSITORY git@github.com:oneapi-src/oneTBB.git
   GIT_TAG 2018_U6
+  BUILD_BYPRODUCTS "${CMAKE_BINARY_DIR}/lib/libtbb.so"
   CONFIGURE_COMMAND ""
   BUILD_IN_SOURCE ON
   BUILD_COMMAND make -j${N} tbb tbbmalloc tbbproxy
-  INSTALL_COMMAND sh -c "cp -u -R ${CMAKE_BINARY_DIR}/deps/src/tbb/build/linux*/*.so* ${CMAKE_BINARY_DIR}/lib/" &&
-  sh -c "cp -u -R ${CMAKE_BINARY_DIR}/deps/src/tbb/include/tbb ${CMAKE_BINARY_DIR}/include/"
+  INSTALL_COMMAND sh -c "cp -u -R ${CMAKE_BINARY_DIR}/deps/src/tbb_ext/build/linux*/*.so* ${CMAKE_BINARY_DIR}/lib/" &&
+  sh -c "cp -u -R ${CMAKE_BINARY_DIR}/deps/src/tbb_ext/include/tbb ${CMAKE_BINARY_DIR}/include/"
 )
 
 add_library(tbb IMPORTED SHARED GLOBAL)
@@ -32,29 +36,28 @@ set_target_properties(tbb PROPERTIES
         "INTERFACE_INCLUDE_DIRECTORIES" ${CMAKE_BINARY_DIR}/include
 )
 
-# TODO: Add jemalloc in future release
 # jemalloc
-# ExternalProject_Add(jemalloc
-#   GIT_REPOSITORY git@github.com:jemalloc/jemalloc.git
-#   GIT_TAG 5.2.1
-#   CONFIGURE_COMMAND ""
-#   BUILD_IN_SOURCE ON
-# #   BUILD_COMMAND ./congfigure make -j${N}
-# #   INSTALL_COMMAND ""
-# #   INSTALL_COMMAND sh -c "cp -u -v -R ${CMAKE_BINARY_DIR}/tbb-prefix/src/tbb/build/linux*/*.so ${CMAKE_BINARY_DIR}/lib/" &&
-# #   sh -c "cp -u -v -R ${CMAKE_BINARY_DIR}/tbb-prefix/src/tbb/include/tbb ${CMAKE_BINARY_DIR}/include/"
-# )
+ExternalProject_Add(jemalloc_ext
+  PREFIX ${CMAKE_BINARY_DIR}/deps
+  URL https://github.com/jemalloc/jemalloc/releases/download/5.2.1/jemalloc-5.2.1.tar.bz2
+  CONFIGURE_COMMAND ./configure --prefix=${CMAKE_BINARY_DIR}
+  BUILD_IN_SOURCE ON
+  BUILD_COMMAND make -j${N} build_lib
+  INSTALL_COMMAND make install_lib
+)
 
 # OpenVDB
 ExternalProject_Add(openvdb_ext
-  DEPENDS tbb_ext blosc_ext
+  DEPENDS tbb_ext blosc_ext jemalloc_ext
   PREFIX ${CMAKE_CURRENT_BINARY_DIR}/deps
   GIT_REPOSITORY git@github.com:AcademySoftwareFoundation/openvdb.git
   GIT_TAG v8.1.0
+  BUILD_BYPRODUCTS "${CMAKE_BINARY_DIR}/lib64/libopenvdb.so"
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}
   -DTBB_ROOT=${CMAKE_BINARY_DIR}
   -DBlosc_ROOT=${CMAKE_BINARY_DIR}
   -DOPENVDB_BUILD_PYTHON_MODULE=OFF
+  -DOPENVDB_BUILD_BINARIES=OFF
 )
 
 add_library(openvdb IMPORTED SHARED GLOBAL)

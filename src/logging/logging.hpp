@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <iostream>
+#include <mutex>
 #include <string>
 
 namespace mipvdb {
@@ -30,6 +31,7 @@ class logging {
   const std::chrono::high_resolution_clock::time_point _startTime;
   const std::string _message;
   static bool _verbose;
+  static std::mutex _mutex;
 };
 
 }  // namespace mipvdb

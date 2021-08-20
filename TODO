@@ -5,7 +5,7 @@ Cmake:
   ✔ Add install and pack generation. @done(21-08-16 23:09)
 Logging:
   ✔ Rework logging add memory usage. @done(21-08-20 14:12)
-  ☐ Add mutex.
+  ✔ Add mutex. @done(21-08-20 17:37)
 tbb:
   ✔ Add blocks to work in parallel to utilize a machine as much as possible. @done(21-08-17 18:27)
 Default:
