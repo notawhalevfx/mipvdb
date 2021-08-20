@@ -8,4 +8,4 @@ add_library(${LIBRARY_NAME} STATIC ${SRCS})
 
 target_link_libraries(${LIBRARY_NAME} logging)
 
-target_link_libraries(${LIBRARY_NAME} openvdb)
+target_link_libraries(${LIBRARY_NAME} openvdb tbb)

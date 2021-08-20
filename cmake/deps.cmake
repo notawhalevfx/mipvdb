@@ -3,6 +3,8 @@ include(ProcessorCount)
 
 # Make some extra directories
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/include)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/lib64)
 
 # blosc
 ExternalProject_Add(blosc_ext
