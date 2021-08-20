@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(mipvdb VERSION 0.5.0)
+project(mipvdb VERSION 0.6.0)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -12,7 +12,6 @@ include(CTest)
 enable_testing()
 
 add_subdirectory(src)
-
 
 install(FILES ${CMAKE_SOURCE_DIR}/LICENSE DESTINATION .)
 

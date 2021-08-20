@@ -1,8 +1,9 @@
+#include <iomanip>
 #include <iostream>
 #include <sstream>
-#include <iomanip>
 
 #include "logging.hpp"
+#include "memory.hpp"
 
 namespace mipvdb {
 
@@ -14,8 +15,12 @@ logging::logging(const std::string &message)
 
 logging::~logging() {
   auto per = std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - _startTime);
-  std::cout << std::fixed << std::setprecision(4) << "[" << per.count() << " s] " << _message << "\n";
+  std::cout << std::fixed << std::setprecision(4);
+  std::cout << "[";
+  std::cout << per.count() << "s " << std::setprecision(2) << memory::getMemoryUsage() << "Gb";
+  std::cout << "] ";
   std::cout << std::resetiosflags(std::ios::showbase);
+  std::cout << _message << "\n";
 }
 
 }  // namespace mipvdb

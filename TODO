@@ -4,9 +4,9 @@ Cmake:
   ☐ Boost add cmake download and compile libs.
   ✔ Add install and pack generation. @done(21-08-16 23:09)
 Logging:
-  ☐ Rework logging.
+  ✔ Rework logging add memory usage. @done(21-08-20 14:12)
   ☐ Add mutex.
 tbb:
-  ☐ Add blocks to work in parallel to utilize a machine as much as possible.
+  ✔ Add blocks to work in parallel to utilize a machine as much as possible. @done(21-08-17 18:27)
 Default:
   ☐ Add README.

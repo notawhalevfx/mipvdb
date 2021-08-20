@@ -82,7 +82,7 @@ bool vdb_resize::generateMip() {
     boost::replace_all(path, "%l", str_level);
 
     openvdb::io::File(path).write(grids_out);
-    logging::message("Saved path:" + path);
+    logging::message("Saved path: " + path);
   }
   return true;
 }
