@@ -22,8 +22,8 @@ class logging {
   }
 
   template <typename T>
-  static inline bool message(const T &message) {
-    if (_verbose) {
+  static inline bool message(const T &message, const bool force = false) {
+    if (_verbose || force) {
       std::lock_guard<std::mutex> lock(_mutex);
       std::cout << message << "\n";
     }

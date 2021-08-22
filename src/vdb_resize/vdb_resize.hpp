@@ -15,10 +15,12 @@ class vdb_resize {
   bool generateMip();
 
  private:
-  bool readvdb();
+  bool readVdb();
+  void writeVdb(const std::string &writefile, const openvdb::GridPtrVec &gridWrites);
+  openvdb::GridBase::Ptr genMip(const openvdb::GridBase::Ptr& grid, const size_t &level);
 
   template <typename GridType>
-  inline openvdb::GridBase::Ptr genMip(const typename GridType::Ptr &inGrid, size_t level) {
+  inline openvdb::GridBase::Ptr genMipExec(const typename GridType::Ptr &inGrid, const size_t &level) {
     typename GridType::Ptr outGrid = GridType::create();
     outGrid->setName(inGrid->getName());
     outGrid->setGridClass(inGrid->getGridClass());
@@ -51,7 +53,7 @@ class vdb_resize {
 
  private:
   const options &_options;
-  std::vector<openvdb::GridBase::Ptr> _grids;
+  openvdb::GridPtrVec _grids;
 };
 
 }  // namespace mipvdb

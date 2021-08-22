@@ -103,4 +103,15 @@ inline std::ostream &operator<<(std::ostream &os, const options &option) {
   return os;
 };
 
+inline std::string namingSuffix(const size_t &level, const options &opt) {
+  std::string str_level;
+  if (opt.namingStyle == mipNamingStyles::numbers) {
+    str_level = std::to_string(level);
+  } else {
+    str_level = enumToString<WordNaming>(static_cast<WordNaming>(level));
+  }
+  return std::move(str_level);
+}
+
+
 }  // namespace mipvdb
