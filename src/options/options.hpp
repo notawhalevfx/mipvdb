@@ -49,7 +49,8 @@ enum class WordNaming {
   quater,
   eight,
   sexteenth,
-  thirtysecond
+  thirtysecond,
+  sixtyfourth
 };
 
 inline std::ostream &operator<<(std::ostream &os, const WordNaming &level) {
@@ -68,6 +69,9 @@ inline std::ostream &operator<<(std::ostream &os, const WordNaming &level) {
       break;
     case WordNaming::thirtysecond:
       os << "thirtysecond";
+      break;
+    case WordNaming::sixtyfourth:
+      os << "sixtyfourth";
       break;
   }
   return os;
