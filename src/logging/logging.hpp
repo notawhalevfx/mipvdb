@@ -16,14 +16,17 @@ class logging {
 
   template <typename T>
   static inline bool errorMessage(const T &message) {
+    std::lock_guard<std::mutex> lock(_mutex);
     std::cerr << message << "\n";
     return false;
   }
 
   template <typename T>
   static inline bool message(const T &message) {
-    if (_verbose)
+    if (_verbose) {
+      std::lock_guard<std::mutex> lock(_mutex);
       std::cout << message << "\n";
+    }
     return true;
   };
 
