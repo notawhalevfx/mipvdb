@@ -1,5 +1,5 @@
 # mipvdb
-mipvdb is a standalone application to generates MIP vdb for volumetrics data. Can be useful for heavy scenes that use a lot of volumetric data to minimize memory footprint. At this moment support only Linux based system.
+mipvdb is a standalone application to generate MIP vdb for volumetrics data. Can be useful for heavy scenes that use a lot of volumetric data to minimize memory footprint. At this moment support only Linux based system.
 
 ## Usage:
     Usage: ./mipvdb [options] in.vdb out.%l.vdb
