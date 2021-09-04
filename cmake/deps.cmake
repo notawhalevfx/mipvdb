@@ -9,7 +9,7 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/lib64)
 # blosc
 ExternalProject_Add(blosc_ext
   PREFIX ${CMAKE_BINARY_DIR}/deps
-  GIT_REPOSITORY git@github.com:Blosc/c-blosc.git
+  GIT_REPOSITORY https://github.com/Blosc/c-blosc.git
   GIT_TAG v1.5.0
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR} -DBUILD_STATIC=ON
 )
@@ -22,7 +22,7 @@ message("Found ${N} Threads")
 # TODO in future test static library
 ExternalProject_Add(tbb_ext
   PREFIX ${CMAKE_BINARY_DIR}/deps
-  GIT_REPOSITORY git@github.com:oneapi-src/oneTBB.git
+  GIT_REPOSITORY https://github.com/oneapi-src/oneTBB.git
   GIT_TAG 2018_U6
   BUILD_BYPRODUCTS "${CMAKE_BINARY_DIR}/lib/libtbb.so"
   CONFIGURE_COMMAND ""
@@ -52,7 +52,7 @@ ExternalProject_Add(jemalloc_ext
 ExternalProject_Add(openvdb_ext
   DEPENDS tbb_ext blosc_ext jemalloc_ext
   PREFIX ${CMAKE_CURRENT_BINARY_DIR}/deps
-  GIT_REPOSITORY git@github.com:AcademySoftwareFoundation/openvdb.git
+  GIT_REPOSITORY https://github.com/AcademySoftwareFoundation/openvdb.git
   GIT_TAG v8.1.0
   BUILD_BYPRODUCTS "${CMAKE_BINARY_DIR}/lib64/libopenvdb.so"
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}
