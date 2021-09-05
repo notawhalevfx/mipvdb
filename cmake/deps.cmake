@@ -1,8 +1,9 @@
 include(ExternalProject)
+include(GNUInstallDirs)
 include(ProcessorCount)
 
 # Make some extra directories
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/include)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_INCLUDEDIR})
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/lib64)
 
@@ -24,18 +25,18 @@ ExternalProject_Add(tbb_ext
   PREFIX ${CMAKE_BINARY_DIR}/deps
   GIT_REPOSITORY https://github.com/oneapi-src/oneTBB.git
   GIT_TAG 2018_U6
-  BUILD_BYPRODUCTS "${CMAKE_BINARY_DIR}/lib/libtbb.so"
+  BUILD_BYPRODUCTS "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/libtbb.so"
   CONFIGURE_COMMAND ""
   BUILD_IN_SOURCE ON
   BUILD_COMMAND make -j${N} tbb tbbmalloc tbbproxy
-  INSTALL_COMMAND sh -c "cp -u -R ${CMAKE_BINARY_DIR}/deps/src/tbb_ext/build/linux*/*.so* ${CMAKE_BINARY_DIR}/lib/" &&
-  sh -c "cp -u -R ${CMAKE_BINARY_DIR}/deps/src/tbb_ext/include/tbb ${CMAKE_BINARY_DIR}/include/"
+  INSTALL_COMMAND sh -c "cp -u -R ${CMAKE_BINARY_DIR}/deps/src/tbb_ext/build/linux*/*.so* ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/" &&
+  sh -c "cp -u -R ${CMAKE_BINARY_DIR}/deps/src/tbb_ext/include/tbb ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_INCLUDEDIR}"
 )
 
 add_library(tbb IMPORTED SHARED GLOBAL)
 set_target_properties(tbb PROPERTIES
-        "IMPORTED_LOCATION" "${CMAKE_BINARY_DIR}/lib/libtbb.so"
-        "INTERFACE_INCLUDE_DIRECTORIES" ${CMAKE_BINARY_DIR}/include
+        "IMPORTED_LOCATION" "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/libtbb.so"
+        "INTERFACE_INCLUDE_DIRECTORIES" ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 # jemalloc
@@ -54,7 +55,7 @@ ExternalProject_Add(openvdb_ext
   PREFIX ${CMAKE_CURRENT_BINARY_DIR}/deps
   GIT_REPOSITORY https://github.com/AcademySoftwareFoundation/openvdb.git
   GIT_TAG v8.1.0
-  BUILD_BYPRODUCTS "${CMAKE_BINARY_DIR}/lib64/libopenvdb.so"
+  BUILD_BYPRODUCTS "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/libopenvdb.so"
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}
   -DTBB_ROOT=${CMAKE_BINARY_DIR}
   -DBlosc_ROOT=${CMAKE_BINARY_DIR}
@@ -67,15 +68,15 @@ target_link_libraries(openvdb INTERFACE tbb)
 add_dependencies(openvdb openvdb_ext)
 
 set_target_properties(openvdb PROPERTIES
-        "IMPORTED_LOCATION" "${CMAKE_BINARY_DIR}/lib64/libopenvdb.so"
-        "INTERFACE_INCLUDE_DIRECTORIES" ${CMAKE_BINARY_DIR}/include
+        "IMPORTED_LOCATION" "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/libopenvdb.so"
+        "INTERFACE_INCLUDE_DIRECTORIES" ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 # boost
 find_package(Boost 1.56 REQUIRED COMPONENTS filesystem program_options)
 
-install(DIRECTORY "${CMAKE_BINARY_DIR}/lib/" DESTINATION lib
-        FILES_MATCHING PATTERN "*.so*")
-install(DIRECTORY "${CMAKE_BINARY_DIR}/lib64/" DESTINATION lib64
+# install(DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/" DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#         FILES_MATCHING PATTERN "*.so*")
+install(DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/" DESTINATION ${CMAKE_INSTALL_LIBDIR}
         FILES_MATCHING PATTERN "*.so*"
         PATTERN "cmake" EXCLUDE)
