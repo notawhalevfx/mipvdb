@@ -6,10 +6,10 @@
 
 namespace mipvdb {
 
-class cui {
+class cli {
  public:
-  cui() = delete;
-  ~cui() = delete;
+  cli() = delete;
+  ~cli() = delete;
 
   static boost::optional<options> arguments(int argc, char *argv[]);
   static boost::none_t errorMessage(const std::string &message);

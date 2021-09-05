@@ -4,19 +4,19 @@
 #include <boost/program_options.hpp>
 
 #include "../logging/logging.hpp"
-#include "cui.hpp"
+#include "cli.hpp"
 #include "version.hpp"
 
 namespace po = boost::program_options;
 
 namespace mipvdb {
 
-boost::none_t cui::errorMessage(const std::string &message) {
+boost::none_t cli::errorMessage(const std::string &message) {
   logging::errorMessage(message);
   return boost::none;
 }
 
-boost::optional<options> cui::arguments(int argc, char *argv[]) {
+boost::optional<options> cli::arguments(int argc, char *argv[]) {
   options opt;
   try {
     po::options_description generic("Generic options");

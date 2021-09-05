@@ -10,10 +10,10 @@ target_link_libraries(${PROJECT_NAME}-bin openvdb)
 add_subdirectory(logging)
 target_link_libraries(${PROJECT_NAME}-bin logging)
 
-add_subdirectory(cui)
-target_link_libraries(${PROJECT_NAME}-bin cui)
+add_subdirectory(cli)
+target_link_libraries(${PROJECT_NAME}-bin cli)
 
 add_subdirectory(vdb_resize)
 target_link_libraries(${PROJECT_NAME}-bin vdb_resize)
 
-install(TARGETS ${PROJECT_NAME}-bin DESTINATION bin)
+install(TARGETS ${PROJECT_NAME}-bin DESTINATION ${CMAKE_INSTALL_BINDIR})

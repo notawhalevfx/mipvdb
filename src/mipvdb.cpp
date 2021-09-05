@@ -2,11 +2,11 @@
 
 #include "logging/logging.hpp"
 #include "options/options.hpp"
-#include "cui/cui.hpp"
+#include "cli/cli.hpp"
 #include "vdb_resize/vdb_resize.hpp"
 
 int main(int argc, char *argv[]) {
-  boost::optional<mipvdb::options> opt = mipvdb::cui::arguments(argc, argv);
+  boost::optional<mipvdb::options> opt = mipvdb::cli::arguments(argc, argv);
   if (!opt)
     return 1;
   mipvdb::logging fullGeneration("Execution time");
