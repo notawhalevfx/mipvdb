@@ -29,7 +29,7 @@ make install
 ```
 
 ## Dependency
-Package | Version | Automatically Installed by Cmake
+Package | Version | Will be installed at compile time
 --- | --- | ---
 OpenVDB | v8.1.0 | YES
 tbb | 2018_U6 | YES
