@@ -8,6 +8,7 @@ on:
       - '**.md'
       - TODO
   pull_request:
+    branches: 
       - master
     paths-ignore:
       - '**.md'
