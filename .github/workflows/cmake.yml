@@ -2,10 +2,16 @@ name: CMake
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+      -master
+    paths-ignore:
+      - '**.md'
+      - TODO
   pull_request:
-    branches: [ master ]
-  #  tags:  
+      -master
+    paths-ignore:
+      - '**.md'
+      - TODO
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
