@@ -3,12 +3,12 @@ name: CMake
 on:
   push:
     branches: 
-      -master
+      - master
     paths-ignore:
       - '**.md'
       - TODO
   pull_request:
-      -master
+      - master
     paths-ignore:
       - '**.md'
       - TODO
