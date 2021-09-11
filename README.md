@@ -1,3 +1,5 @@
+![Cmake passing](https://github.com/notawhalevfx/mipvdb/workflows/CMake/badge.svg
+)
 # mipvdb
 mipvdb is a standalone application to generate MIP vdb. Can be useful for heavy scenes that use a lot of volumetric data to minimize memory footprint. At this moment support only Linux based system.
 
