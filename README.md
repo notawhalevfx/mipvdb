@@ -34,7 +34,7 @@ make install
 Package | Version | Will be installed at compile time
 --- | --- | ---
 OpenVDB | v9.0.0 | YES
-tbb | 2019_U9 | YES
-blosc | v1.5.0 | YES
+tbb | 2020_U3 | YES
+blosc | v1.17.0 | YES
 jemalloc | 5.2.1 | YES
 boost | 1.56 | NO

@@ -5,7 +5,6 @@ configure_file (
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(${PROJECT_NAME}-bin mipvdb.cpp)
-target_link_libraries(${PROJECT_NAME}-bin openvdb)
 
 add_subdirectory(logging)
 target_link_libraries(${PROJECT_NAME}-bin logging)

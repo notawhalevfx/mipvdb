@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(mipvdb VERSION 1.0.1)
+project(mipvdb VERSION 1.0.4)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=cppcoreguidelines-*")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 

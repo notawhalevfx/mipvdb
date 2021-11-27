@@ -11,7 +11,7 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/lib64)
 ExternalProject_Add(blosc_ext
   PREFIX ${CMAKE_BINARY_DIR}/deps
   GIT_REPOSITORY https://github.com/Blosc/c-blosc.git
-  GIT_TAG v1.5.0
+  GIT_TAG v1.17.0
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR} -DBUILD_STATIC=ON
 )
 
@@ -24,7 +24,7 @@ message("Found ${N} Threads")
 ExternalProject_Add(tbb_ext
   PREFIX ${CMAKE_BINARY_DIR}/deps
   GIT_REPOSITORY https://github.com/oneapi-src/oneTBB.git
-  GIT_TAG 2019_U9
+  GIT_TAG 2020_U3
   BUILD_BYPRODUCTS "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/libtbb.so"
   CONFIGURE_COMMAND ""
   BUILD_IN_SOURCE ON

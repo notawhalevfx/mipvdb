@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include <boost/optional.hpp>
 
 #include "../options/options.hpp"
@@ -11,7 +13,7 @@ class cli {
   cli() = delete;
   ~cli() = delete;
 
-  static boost::optional<options> arguments(int argc, char *argv[]);
+  static boost::optional<options> arguments(const std::vector<std::string> arg);
   static boost::none_t errorMessage(const std::string &message);
 
 };

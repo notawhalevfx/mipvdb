@@ -16,7 +16,7 @@ boost::none_t cli::errorMessage(const std::string &message) {
   return boost::none;
 }
 
-boost::optional<options> cli::arguments(int argc, char *argv[]) {
+boost::optional<options> cli::arguments(const std::vector<std::string> arg) {
   options opt;
   try {
     po::options_description generic("Generic options");
@@ -47,12 +47,12 @@ boost::optional<options> cli::arguments(int argc, char *argv[]) {
     visible_options.add(generic).add(vdbOptions);
 
     po::variables_map vm;
-    po::store(po::command_line_parser(argc, argv)
+    po::store(po::command_line_parser(arg)
       .options(cmdline_options).positional(pos).run(), vm);
     po::notify(vm);
 
     if (vm.count("help")) {
-      logging::message("Usage: " + std::string(argv[0]) + " [options] in.vdb out.[%l].vdb", true);
+      logging::message("Usage: " + std::string(arg[0]) + " [options] in.vdb out.[%l].vdb", true);
       logging::message("%l will be replaced by level in non one file mode.", true);
       logging::message(visible_options, true);
       return boost::none;
